@@ -1,0 +1,185 @@
+/*Desktop First*/
+/*При ширине экрана в 1300px (и менее) будут срабатывать стили*/
+@media (max-width: 1300px){
+	.works__item{
+		.works &{
+			flex:0 1 50%;
+		}
+	}
+}
+
+
+/*При ширине экрана в 991px (и менее) будут срабатывать стили*/
+@media (max-width: 991px){
+	.burger{
+	display: block;
+}
+
+	.header__inner{
+		.nav{
+			/*Класс для переключения и отображения элементов навигации 
+			на телефонах и планшетах*/
+			&.show{
+				.header &{
+					display: flex;
+				}
+			}
+			.nav__link{
+				padding: 9px 15px;
+			}
+			.header &{
+				display: none;
+				flex-direction:column;
+				/*Ширина навигации будет 100%*/
+				width: 100%;
+				position: absolute;
+				right: 0;
+				/*100% высоты от шапки сайта*/
+				top:100%;
+				/*Размещяем элементы справа*/
+				text-align: right;
+				background-color: #2f324d;
+			}
+		}
+	}
+	.intro__inner{
+		.intro__title{
+			.intro &{
+				font-size: 40px;
+			}
+		}
+	}
+
+	.features__item{
+		.features &{
+			flex:0 1 50%;
+		}
+	}
+
+	.team{
+		.team__inner{
+			.team__item{
+				flex:0 1 50%;
+				text-align: center;
+				.team__photo{
+					margin-left: auto;
+					margin-right: auto;
+				}
+			}
+		}
+	}
+
+	.social{
+		justify-content: center;
+	}
+
+	.reviews{
+		.reviews__item{
+			.reviews__photo{
+				flex:0 1 100%;
+				overflow: hidden;
+				margin: 15px 0px 40px 0px;
+			}
+			.reviews__content{
+				flex:0 1 100%;
+				padding-left: 0;
+				padding-bottom: 40px;
+			}
+		}
+	}
+}
+
+/*При ширине экрана в 767px (и менее) будут срабатывать стили*/
+@media (max-width: 767px){
+	/*ЗАЩИТА на планшетах и телефонах нужно делать автоматическую высоту
+	так как текста и абзацев может быть больше и тогда все может выйти 
+	за границу блока*/
+	.intro{
+		height: auto;
+		/*Добавляем отступы чтобы контент не был впритык 
+		к стенкам сверху и снизу блока */
+		padding-top: 130px;
+		padding-bottom: 30px;
+		.intro__inner{
+			.intro__title{
+				font-size: 30px;
+			}
+			.intro__subtitle{
+				margin-bottom: 30px;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.features{
+		margin: 40px 0px;
+		.features__item{
+			flex:0 1 100%;
+		}
+	}
+
+	.works__item{
+		.works &{
+			flex:0 1 100%;
+			height: 300px;
+		}
+	}
+
+	.team{
+		margin: 60px 0 30px 0;
+		.team__inner{
+			.team__item{
+				flex:0 1 100%;
+			}
+		}
+	}
+
+	.reviews__item{
+		.reviews__content{
+			.reviews__text{
+				.reviews &{
+					font-size: 25px;
+				}
+			}
+		}
+	}
+
+	.btn--long{
+		min-width: 260px;
+	}
+
+	.download{
+		margin: 50px 0;
+		.download__title{
+			font-size: 24px;
+		}
+	}
+
+	.footer{
+		.footer__inner{
+			padding: 30px 0px;
+		}
+		.footer__block{
+			flex:0 1 100%;
+			padding-left: 0;
+			padding-right: 0;
+			margin-bottom: 30px;
+			&:last-child{
+				margin:0;
+			}
+		}
+	}
+}
+
+/*При ширине экрана в 414px (и менее) будут срабатывать стили*/
+@media (max-width: 414px){
+	.reviews__item{
+		.reviews__photo{
+			.reviews__img{
+				.reviews &{
+					right: -100px;
+				}
+			}
+		}
+	}
+}

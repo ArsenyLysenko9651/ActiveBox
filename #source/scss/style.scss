@@ -1,0 +1,651 @@
+/*Обнуление стилей по-умолчанию
+Символ звездочка обозначает что идет обращения ко 
+всем тегам на странице*/
+*{
+	/*Отступы и границы*/
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+/*Убирает линии обводки у некоторых браузеров
+Алгоритм подсчета размера блока. Это значит что 
+если блок будет равен 400px а padding-и по 20px
+.То размер блока и будет 400px а контент будет 
+сдвигаться внутрь этого блока  */
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+/*Теги становяться блочными*/
+nav,footer,header,aside{display: block;}
+
+/*Уравнивают поведение шрифтов для разных
+браузеров*/
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+/*Наследование шрифта для форм*/
+input,button,textarea{font-family:inherit;}
+
+/*Дополнительные параметры для браузеров*/
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+/*Обнуления заголовков*/
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+/*----------------------------------------------------------------*/
+
+
+
+/*Основные свойства для body(шрифт, размер текста, цвет которые часто используются в 
+данном макете)*/
+body{
+	/*Если не прогрузиться шрифт Raleway. Загрузиться sans-serif */
+	font-family: "Raleway", sans-serif;
+	font-size: 14px;
+	color:#6c7279;
+	background-color: #fff;
+}
+
+/*-----------------------------container-----------------------------------*/
+.container{
+	/*Ширина блока 100% но max ширина 1170px.
+	Если размер экрана будет меньше чем 1170px 
+	то блок будет занимать 100% размера экрана.
+	Делаем размер блока не фиксированным а резиновым.
+	Это нужно для адаптации сайта*/
+	width: 100%;
+	max-width: 1200px;
+	/*Выравнивание по центру
+	сверху и снизу по нулям, а слева и справа auto(подстраивается)*/
+	margin:0 auto;
+	/*Нужно при адапации сайта, чтобы контент не прижимался к экрану.
+	и был небольшой отступ. НО ТАКЖЕ НУЖНО ДОБАВИТЬ К ШИРИНЕ КОНТЕЙНЕРА 30px
+	1170px + 30px = 1200*/
+	padding: 0 15px;
+}
+
+/*-----------------------------header-----------------------------------*/
+.header{
+	/*Шапка будет находиться поверх intro*/
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 1000;
+	/*Добавление фиксированного (липкого) меню
+	через класс fixed и Jquery*/
+	&.fixed{
+		height: auto;
+		position: fixed;
+		background-color: #2f324d;
+		.header__inner{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border-bottom: 0;
+		}
+	}
+	.header__inner{
+		display: flex;
+		justify-content: space-between;
+		align-items:center;
+		/*Линия под навигацией*/
+		border-bottom: 1px solid #505369;
+		padding: 35px 0px;
+		.nav{
+			display: flex;
+			font-size: 13px;
+			font-weight: 700;
+			text-transform: uppercase;
+			.nav__link{
+				margin-left: 50px;
+				color: #ffffff;
+				/*Прозачность ссылок*/
+				opacity:0.75;
+				/*Плавность перехода*/
+				transition:opacity 0.2s ease 0s;
+				/*У первого ребенка убираем margin-left*/
+				&:first-child{
+					margin: 0;
+				}
+				&:hover{
+					/*откл прозрачности*/
+					opacity:1;
+				}
+			}
+		}
+	}
+}
+
+
+/*-----------------------------intro-----------------------------------*/
+
+/*Шаблон Цвета кнопок в проекте*/
+%btn_color{
+	background-color:#e84545;
+}
+
+/*Шаблон Цвета кнопок в проекте при наведении*/
+%btn_color_hover{
+	background-color:#dd3434;
+	transition:background .1s linear;
+}
+
+/*Общие свойства кнопки*/
+.btn{
+	/*Позволяет задавать ширину и высоту элемента.*/
+	display: inline-block;
+	font-size: 13px;
+	color: #fff;
+	font-weight: 600;
+	text-transform: uppercase;
+	@extend %btn_color;
+	padding: 14px 40px;
+	border-radius: 2px;
+	text-align: center;
+	&:hover{
+		@extend %btn_color_hover;
+	}
+}
+
+
+.intro{
+	display: flex;
+	/*Каждый новый элемент в блоке intro будет начинаться с новой строки*/
+	flex-direction:column;
+	justify-content: center;
+	/*Выравниваем элементы по центру*/
+	height: 750px;
+	/*[cover]-Чтобы картинка занимала пропорционально всю высоту нашего блока
+	цвет добавлен на случай если картинка не прогрузиться, тогда загрузиться фон*/
+	background: #2f324d url("../../img/intro-bg.jpg") no-repeat center;
+	/*Масштабирует изображение с сохранением пропорций так, 
+	чтобы его ширина или высота равнялась ширине или высоте блока*/
+	background-size: cover;
+	/*Отступ равный размеру нашей шапки*/
+	padding-top: 100px;
+	/*Ширина блока с заголовком и подзаголовка*/
+	.intro__inner{
+		width: 100%;
+		max-width: 970px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.intro__title{
+		margin-bottom: 30px;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 65px;
+		/*Относительная запись от font-size: 65px 
+		1 это значит 65px 
+		1.1 значит 71.5px
+		При изменении font-size, относительно этого размера 
+		line-height будет подстравиться*/
+		line-height: 1.1;
+		color:#fff;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+	.intro__subtitle{
+		margin-bottom: 60px;
+		font-size: 22px;
+		color:#fff;
+		/*line-height в макете 33px
+		Значит: 1=22 5=22/2=11 11+22 = 33 в сумме будет*/
+		line-height:1.5;
+		font-weight: 400;
+	}
+}
+
+/*-----------------------------features-----------------------------------*/
+.features{
+	display: flex;
+	/*Отступ = 94 половина 47 (1)*/
+	margin: 95px -47px;
+	flex-wrap:wrap;
+	.features__item{
+		/* Отступ сверху и снизу в данном блоке равен 120px margin(95px+25px)*/
+		margin-bottom: 25px;
+		/*Разрещаем увеличиваться и уменьщаться размер itema элементов будет 33.333%
+		100% разделить на 3 = 33.333% */
+		flex:0 1 33.333%;
+		/*Отступ = 94 половина 47 (2)*/
+		padding: 0 47px;
+		text-align: center;
+		.features__icon{
+			margin-bottom: 25px;
+		}
+		.features__title{
+			margin-bottom: 20px;
+			font-size: 14px;
+			color: #2d3033;
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+		.features__text{
+			font-size: 14px;
+			line-height: 1.5;
+			color:#6c7279;
+		}
+	}
+}
+
+/*-----------------------------works-----------------------------------*/
+.works{
+	display: flex;
+	flex-wrap:wrap;
+	.works__item{
+		flex:0 1 25%;
+		/*Высота картинок*/
+		height: 350px;
+		/*Границы у картинок*/
+		border-bottom: 1px solid #fff;
+		border-right: 1px solid #fff;
+		/*Картинка будет позицонироваться относительно works__item
+		(нужно прописать у родителя position: relative)*/
+		position: relative;
+		/*Скрываем все что вылезает за приделы блока =25%
+		т.к картинка большая*/
+		overflow:hidden;
+		/*(2)Показываем фон после наведения курсором*/
+		&:hover{
+			.works__content{
+				opacity: 1;
+			}
+		}
+		.works__photo{
+			/*Если картинка окажется меньше ширины блока
+			она все равно растянется на 100% ширины этого блока*/
+			min-width: 100%;
+		/*Картинка будет находиться внутри works__item  
+		и позиционироваться относительно этого блока */
+			position: absolute;
+			/*(1)Выравнивание по осям X и Y.Потому что 
+			картинка может быть разного размера
+			(больше по высоте, по ширине чем сам блок works__item) */
+			left:50%;
+			top:50%;
+			/*z-index должен быть меньше чем у works__content */
+			z-index: 1;
+			/*(2)Выравнивание по осям X и Y.Потому что 
+			картинка может быть разного размера
+			(по осям X и Y ставим -50%, Z ноль) */
+			transform: translate3d(-50%, -50%, 0);
+		}
+		.works__content{
+			display: flex;
+			/*Каждый новый элемент будет находиться на новой строке 
+			и занимать 100% ширины экрана*/
+			flex-direction:column;
+			/*Выравнивание элементов по центру*/
+			justify-content: center;
+			text-align: center;
+			/*Чтобы занимать всю высоту и ширину блока works__item*/
+			width:100%;
+			height: 100%;
+			position: absolute;
+			top:0;
+			left:0;
+			/*Чтобы контент был поверх картинки */
+			z-index: 2;
+			/*Фон где расположен контент
+			задаем его через rgba и устанавливаем 
+			прозрачность 90%(.9)*/
+			background-color: rgba(232,69,69,.9);
+			/*(1)Скрываем фон до наведения курсором*/
+			opacity: 0;
+			transition:opacity .2s linear;
+			.works__title{
+				margin-bottom: 5px;
+				font-size: 14px;
+				font-weight: 700;
+				color:#fff;
+				text-transform: uppercase;
+			}
+			.works__text{
+				font-size: 14px;
+				color:#fff;
+			}
+		}
+	}
+}
+
+/*-----------------------------team-----------------------------------*/
+.team{
+	/*30+70=100 Должно быть снизу*/
+	margin: 100px 0px 70px 0px;
+	.team__inner{
+		display: flex;
+		flex-wrap:wrap;
+		margin: 0 -15px;
+		.team__item{
+			flex:0 1 25%;
+			padding: 0 15px;
+			/*ЗАЩИТА:Оступ при добавлении нового участника команды*/
+			margin-bottom: 30px;
+			/*Адаптивность картинок*/
+			.team__photo{
+				margin-bottom: 20px;
+				display: block;
+				/*Нужно чтобы картинка занимала 100% ширины блока
+				картинка будем max равна ширине блока в котором она 
+				находиться */
+				max-width: 100%;
+				/*Высота будет уменьшатся пропорционально*/
+				height: auto;
+			}
+			.team__name{
+				margin-bottom: 8px;
+				font-size: 22px;
+				color: #2d3033;
+			}
+			.team__prof{
+				margin-bottom: 15px;
+				font-size: 13px;
+				color:#e84545;
+				text-transform: uppercase;
+			}
+			.team__text{
+				margin-bottom: 20px;
+				font-size: 14px;
+				line-height: 1.5;
+				color: #6c7279;
+			}
+		}
+	}
+}
+
+/*-----------------------------social-----------------------------------*/
+.social{
+	display: flex;
+	.social__item{
+		display: flex;
+		justify-content: center;
+		align-items:center;
+		width: 40px;
+		height: 40px;
+		margin-right: 4px;
+		border: 1px solid #e8ecee;
+		background-color: #fff;
+		transition:background .2s linear;
+		&:last-child{
+			margin: 0;
+		}
+		&:hover{
+			background-color: #e8ecee;
+		}
+	}
+}
+
+/*------------------------------reviews---------------------------------*/
+.reviews{
+	/*Если картинки будут больше, чтобы они не вылезали
+	за границу блока*/
+	overflow: hidden;
+	background-color: #53354a;
+	/*ИСПРАВЛЕНИЕ ОШИБКИ слайдера*/
+	.reviews__slider{
+		/*Укажем высоту слайдера*/
+		height: 500px;
+		/*Все что не будет влазить скрываем*/
+		overflow: hidden;
+		/*Когда слайдер прогрузиться на разных устройствах 
+		будет авто высота*/
+		&.slick-initialized {
+			height:auto;
+		}
+	}
+	.reviews__item{
+		display: flex;
+		/*Нужно для мобильной версии*/
+		flex-wrap:wrap;
+		/*Все что не будет влазить скрываем
+		чтобы слайды не накладывались друг на друга*/
+		overflow: hidden;
+	}
+	.reviews__photo{
+		flex:0 1 50%;
+		/*Высота картинки*/
+		height:500px;
+		position: relative;
+		.reviews__img{
+			position: absolute;
+			/*(1)Ровно по вертикали распологаем картинку
+			если картинка будет больше по высоте чем 500px
+			тогда она будет оцентрована по вертикали*/
+			top:50%;
+			right:0;
+			z-index: 1;
+			/*(2)Ровно по вертикали распологаем картинку*/
+			transform:translateY(-50%);
+		}
+	}
+	.reviews__content{
+		display: flex;
+		flex-direction:column;
+		justify-content: center;
+		padding-left: 80px;
+		flex:0 1 50%;
+		.reviews__text{
+			margin-bottom: 25px;
+			font-family: 'Cardo', sans-serif;
+			font-style: italic;
+			font-size: 36px;
+			line-height: 1.2;
+			color:#fff;
+		}
+		.reviews__author{
+			font-size: 13px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #fff;
+		}
+	}
+}
+
+/*Точки для слайдера*/
+.slick-dots{
+	/*Применим flex*/
+	display: flex;
+	/*Расположим по центру*/
+	justify-content: center;
+	width: 50%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 2;
+	/*Отступ кнопки*/
+	padding-bottom: 20px;
+	li{
+		/*Отступ кнопки*/
+		margin: 0 5px;
+	}
+	/*(1)При нажатии на точку будет меняться прозрачность*/
+	.slick-active{
+		button{
+			opacity: 1;
+		}
+	}
+	/*Убираем все свойста кнопки(цвет,размер текста и т.д)
+	и стилезуем как нам нужно */
+	button{
+		/*Размер кнопок*/
+		height: 15px;
+		width: 15px;
+		background: #fff;
+		border-radius: 50%;
+		border: 0;
+		padding: 0;
+		font-size: 0;
+		color:transparent;
+		/*(2)При нажатии на точку будет меняться прозрачность*/
+		opacity: 0.5;
+		/*Устанавливает форму курсора*/
+		cursor: pointer;
+	}
+}
+
+/*------------------------------download---------------------------------*/
+.download{
+	margin: 90px 0;
+	text-align: center;
+	.download__title{
+		margin-bottom: 10px;
+		font-size: 28px;
+		color: #2d3033;
+		font-weight: 300;
+	}
+	.download__text{
+		margin-bottom: 30px;
+		font-size: 13px;
+		color: #2d3033;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+}
+
+/*Модификатор делаем кнопку в данной секции длинее*/
+.btn--long{
+	min-width: 280px;
+}
+
+/*------------------------------footer---------------------------------*/
+
+/*Общий цвет и стиль текста в секции footer */
+%footer_color_and_style_all{
+	font-size: 14px;
+	line-height: 1.5;
+	color:rgba(255,255,255, .5);
+}
+
+.footer{
+	background-color: #3a3e64;
+	.footer__inner{
+		display: flex;
+		flex-wrap:wrap;
+		padding: 70px 0;
+	}
+	.footer__block{
+		flex:0 1 33.33333%;
+		/*Нужно для адаптива 
+		чтобы блоки были друг от друга 
+		отделены*/
+		padding: 0 15px;
+		text-align: center;
+		.footer__title{
+			margin-bottom: 10px;
+			font-size: 14px;
+			font-weight: 700;
+			color:#fff;
+			text-transform: uppercase;
+		}
+		.footer__address{
+			@extend %footer_color_and_style_all;
+			/*Так как у тега [address] по
+			умолчанию стоит стиль italic*/
+			font-style:normal;
+		}
+		.footer__text{
+			@extend %footer_color_and_style_all;
+		}
+	}
+}
+
+/*Модификатор для социальных сетей*/
+.social--footer{
+	justify-content: center;
+	.social__item{
+		/*Прозрачный*/
+		background: transparent;
+		/*Меням толщину границы border*/
+		border-width: 2px;
+		border-color: #fff;
+		border-radius: 2px;
+		&:hover{
+			background-color: #fff;
+		}
+	}
+}
+
+/*----------------------------copyright--------------------------------*/
+.copyright{
+	padding: 20px 0px;
+	background-color: #313454;
+	.copyright__text{
+		text-align: center;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #808080;
+		span{
+			color: #ffffff;
+		}
+	}
+}
+
+/*----------------------------------------------------------------------*/
+/*Меню Бургер*/
+
+/*Общие стили для линий бургера*/
+%burger_linear_all{
+	content: "";
+	/*От родителя(Чтобы не писать width: 30px)*/
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #fff;
+	z-index: 1;
+}
+
+.burger{
+	display: none;
+	/*Убираем границы у кнопки по умолчанию*/
+	border: 0;
+	/*Устанавливает форму курсора, 
+	когда он находится в пределах элемента*/
+	cursor: pointer;
+	.burger__item{
+		display: block;
+		/*ширина полоски бургера*/
+		width: 30px;
+		height: 3px;
+		background-color: #fff;
+		/*Чтобы было видно другому разработчику что
+		это бургер меню*/
+		/*Нулевое меню*/
+		font-size: 0;
+		/*Прозрачный цвет*/
+		color: transparent;
+		position: relative;
+		&:before{
+			top:-8px;
+			left: 0;
+			@extend %burger_linear_all;
+		}
+		&:after{
+			bottom:-8px;
+			left: 0;
+			@extend %burger_linear_all;
+		}
+	}
+}
+
+/*----------------------------Media-ЗАПРОСЫ--------------------------------*/
+@import "media.scss";
